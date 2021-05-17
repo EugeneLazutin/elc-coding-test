@@ -7,9 +7,7 @@
     "type": "git",
     "url": ""
   },
-  "dependencies": {
-    "debounce": "^1.2.1"
-  },
+  "dependencies": {},
   "scripts": {
     "servers": "SET NODE_ENV=development & gulp watch",
     "dev-server": "SET NODE_ENV=development & gulp dev_server",
