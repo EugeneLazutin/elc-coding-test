@@ -1,21 +1,29 @@
 import { useState, useEffect } from 'react';
+import { ServerUrl } from '../constants';
+import useDebounce from './useDebounce';
 
-const useSearch = (query, minLetters = 3) => {
+const defaultOptions = {
+    minLetters: 3,
+    delay: 500,
+};
+
+const useSearch = (query, options = defaultOptions) => {
     const [result, setResult] = useState([]);
+    const debouncedQuery = useDebounce(query, options.delay);
 
     useEffect(
-        function onQueryChange() {
-            if (query && query.length >= minLetters) {
-                fetch(`http://localhost:3035/search?query=${query}`)
+        function fetchData() {
+            if (debouncedQuery && debouncedQuery.length >= options.minLetters) {
+                fetch(`${ServerUrl}/search?query=${debouncedQuery}`)
                     .then((response) => response.json())
-                    .then((data) => setResult(data))
-                    .catch((data) => {
-                        console.error(data);
+                    .then(setResult)
+                    .catch((error) => {
+                        console.error(error);
                         setResult([]);
                     });
             }
         },
-        [query]
+        [debouncedQuery]
     );
 
     return {

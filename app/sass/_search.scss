@@ -1,4 +1,4 @@
-.search-items {
+.search-result {
     display: flex;
     flex-wrap: wrap;
     max-width: $siteWidth;
@@ -10,7 +10,7 @@
         display: flex;
         align-items: center;
 
-        .search-item-image {
+        figure {
             width: 40%;
 
             img {
@@ -23,14 +23,14 @@
         .search-item-info {
             width: 60%;
             padding-left: 10px;
-        }
 
-        .search-item-name {
-            margin-top: 10px;
-            margin-bottom: 20px;
-            cursor: pointer;
-            &:hover {
-                color: gray;
+            h3 {
+                margin-top: 10px;
+                margin-bottom: 20px;
+                cursor: pointer;
+                &:hover {
+                    color: gray;
+                }
             }
         }
     }

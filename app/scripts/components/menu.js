@@ -1,18 +1,9 @@
-import React, { useState } from 'react';
-import useDebouncedSearch from '../hooks/useDebouncedSearch';
-import SearchItem from './searchItem';
+import React, { useState, useCallback }  from 'react';
+import Search from "./search";
 
 const Menu = () => {
-    const [query, setQuery] = useState('');
-    const [showingSearch, setShowingSearch] = useState(false);
-    const { result, clear } = useDebouncedSearch(query);
-
-    const handleQueryChange = (e) => setQuery(e.target.value);
-    const handleSearchClick = () => {
-        setShowingSearch(!showingSearch);
-        clear();
-        setQuery('');
-    };
+    const [isOpen, setIsOpen] = useState(false);
+    const toggleIsOpen = useCallback(() => setIsOpen(!isOpen), [isOpen]);
 
     return (
         <header className="menu">
@@ -28,27 +19,13 @@ const Menu = () => {
                         <a href="#" className="nav-item">STORES</a>
                         <a href="#" className="nav-item">INSPIRATION</a>
 
-                        <a href="#" onClick={handleSearchClick}>
+                        <a href="#" onClick={toggleIsOpen}>
                             <i className="material-icons search">search</i>
                         </a>
                     </nav>
                 </div>
             </div>
-            <div
-                className={
-                    (showingSearch ? 'showing ' : '') + 'search-container'
-                }
-            >
-                <input type="text" value={query} onChange={handleQueryChange} />
-                <a href="#" onClick={handleSearchClick}>
-                    <i className="material-icons close">close</i>
-                </a>
-                <div className="search-items">
-                    {result.map((item) => (
-                        <SearchItem {...item} key={item._id} />
-                    ))}
-                </div>
-            </div>
+            <Search isOpen={isOpen} toggleIsOpen={toggleIsOpen} />
         </header>
     );
 };

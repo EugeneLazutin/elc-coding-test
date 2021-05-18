@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 const SearchItem = (item) => {
     return (
         <div className="search-item">
-            <figure className="search-item-image">
+            <figure>
                 <img alt="picture" src={item.picture} />
             </figure>
             <div className="search-item-info">
-                <h3 className="search-item-name">{item.name}</h3>
+                <h3>{item.name}</h3>
                 <span>{item.about}</span>
             </div>
         </div>
