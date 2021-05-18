@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
-import useDebouncedSearch from "../hooks/useDebouncedSearch";
-import SearchItem from "./searchItem";
+import React, { useState } from 'react';
+import useDebouncedSearch from '../hooks/useDebouncedSearch';
+import SearchItem from './searchItem';
 
 const Menu = () => {
     const [query, setQuery] = useState('');
     const [showingSearch, setShowingSearch] = useState(false);
-    const {result, clear} = useDebouncedSearch(query);
+    const { result, clear } = useDebouncedSearch(query);
 
     const handleQueryChange = (e) => setQuery(e.target.value);
     const handleSearchClick = () => {
@@ -34,20 +34,24 @@ const Menu = () => {
                     </nav>
                 </div>
             </div>
-            <div className={(showingSearch ? "showing " : "") + "search-container"}>
-                <input type="text" value={query} onChange={handleQueryChange}/>
+            <div
+                className={
+                    (showingSearch ? 'showing ' : '') + 'search-container'
+                }
+            >
+                <input type="text" value={query} onChange={handleQueryChange} />
                 <a href="#" onClick={handleSearchClick}>
                     <i className="material-icons close">close</i>
                 </a>
                 <div className="search-items">
-                    {result.map(item => <SearchItem {...item} key={item._id} />)}
+                    {result.map((item) => (
+                        <SearchItem {...item} key={item._id} />
+                    ))}
                 </div>
             </div>
         </header>
     );
-
-
-}
+};
 
 // Export out the React Component
 module.exports = Menu;

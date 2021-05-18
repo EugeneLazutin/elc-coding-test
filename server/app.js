@@ -1,6 +1,6 @@
 /**
  * The Server Can be configured and created here...
- * 
+ *
  * You can find the JSON Data file here in the Data module. Feel free to impliment a framework if needed.
  */
 
@@ -35,7 +35,10 @@ const port = 3035;
  */
 http.createServer(function (req, res) {
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3030');
-    res.setHeader('Access-Control-Allow-Headers', 'origin, content-type, accept');
+    res.setHeader(
+        'Access-Control-Allow-Headers',
+        'origin, content-type, accept'
+    );
 
     try {
         if (req.method === 'GET' && req.url.indexOf('/search') === 0) {
@@ -61,10 +64,11 @@ function getSearchQuery(requestUrl) {
 
 function filterData(data, query) {
     const queryLowerCase = query.toLowerCase();
-    return data.filter(({name, about, tags}) =>
-        name.toLowerCase().indexOf(queryLowerCase) !== -1 ||
-        about.toLowerCase().indexOf(queryLowerCase) !== -1 ||
-        tags.some((tag) => tag.toLowerCase() === queryLowerCase)
+    return data.filter(
+        ({ name, about, tags }) =>
+            name.toLowerCase().indexOf(queryLowerCase) !== -1 ||
+            about.toLowerCase().indexOf(queryLowerCase) !== -1 ||
+            tags.some((tag) => tag.toLowerCase() === queryLowerCase)
     );
 }
 
